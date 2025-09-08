@@ -1,7 +1,7 @@
 
-# DevTinder
+# DevMatch
 
-DevTinder is a simple matchmaking app for developers. Connect with like-minded coders, send requests, and build your dev network.
+DevMatch is a simple matchmaking app for developers. Connect with like-minded coders, send requests, and build your dev network.
 
 ---
 
