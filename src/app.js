@@ -4,9 +4,12 @@ const validator=require("validator")
 const cookieParser = require('cookie-parser');
 const jwt=require("jsonwebtoken")
 const cors=require("cors");
+const dotenv=require("dotenv").config()
 
 
 const app=express();
+const PORT=process.env.PORT||7777
+
 
 app.use(cors({
     origin:"http://localhost:5173",
@@ -50,7 +53,7 @@ app.use("/",userRoutes)
 connectDB()
 .then(()=>{
     console.log("Database connected successfully");
-    app.listen(7777, () => {
+    app.listen(PORT, () => {
     console.log("server is running at 7777")
 })                   //now it can take requests
 
