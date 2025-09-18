@@ -1,7 +1,7 @@
 
-# DevTinder
+# DevMatch
 
-DevTinder is a simple matchmaking app for developers. Connect with like-minded coders, send requests, and build your dev network.
+DevMatch is a simple matchmaking app for developers. Connect with like-minded coders, send requests, and build your dev network.
 
 ---
 
@@ -22,11 +22,3 @@ DevTinder is a simple matchmaking app for developers. Connect with like-minded c
 - **Database:** MongoDB
 
 ---
-
-## 🛠 Installation
-
-```bash
-git clone https://github.com/your-username/devtinder.git
-cd devtinder
-npm install
-npm start
