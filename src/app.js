@@ -11,11 +11,14 @@ const app=express();
 const PORT=process.env.PORT||7777
 
 
+// Trust Render's proxy so secure cookies and protocol detection work correctly
+app.set('trust proxy', 1);
+
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ['https://your-frontend-domain.com', 'https://your-frontend-domain.vercel.app'] 
-        : "http://localhost:5173",
-    credentials:true,
+    origin: process.env.CLIENT_URL || (process.env.NODE_ENV === 'production' 
+        ? 'https://your-frontend-domain.vercel.app'
+        : "http://localhost:5173"),
+    credentials: true,
 }));
 app.use(express.json());   //read the JSOn object and cinvert it into js object and add it to req.body
 app.use(express.urlencoded({extended:true}));

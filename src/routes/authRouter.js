@@ -116,7 +116,13 @@ authRouter.post("/login",async(req,res)=>{
 
 
     const token=await user.getJWT()   //payload,secret key,options
-    res.cookie("token",token)
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
 
   
 res.status(200).json({
@@ -137,7 +143,13 @@ res.status(200).json({
 //if login  toh cookie expire krdo
 
 authRouter.post("/logout",isLoggedIn,async(req,res)=>{
-  res.cookie("token",null,{expires:new Date(0)})
+  res.cookie("token", null, { 
+    expires: new Date(0),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+    path: '/',
+  })
   res.send("Logout successful");
 
 })
