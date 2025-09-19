@@ -12,13 +12,29 @@ const PORT=process.env.PORT||7777
 
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin: process.env.NODE_ENV === 'production' 
+        ? ['https://your-frontend-domain.com', 'https://your-frontend-domain.vercel.app'] 
+        : "http://localhost:5173",
     credentials:true,
 }));
 app.use(express.json());   //read the JSOn object and cinvert it into js object and add it to req.body
 app.use(express.urlencoded({extended:true}));
 
 app.use(cookieParser());
+
+// Root route
+app.get("/", (req, res) => {
+    res.json({
+        message: "DevTinder API is running! 🚀",
+        status: "success",
+        endpoints: {
+            auth: "/auth/*",
+            profile: "/profile/*", 
+            requests: "/requests/*",
+            users: "/users/*"
+        }
+    });
+});
 
 const {User}=require("./models/usermodel")
 const {connectDB}=require("./config/database")
