@@ -17,19 +17,13 @@ authRouter.post("/signup", async (req, res) => {
     //validate the data
     //alagh se function likhne ki koi jrrut nhi 
   
-  // Add debugging to see what's happening
-  console.log("Signup - Request headers:", req.headers);
-  console.log("Signup - Request body:", req.body);
-  console.log("Signup - Request body type:", typeof req.body);
-  
   // Check if req.body exists before destructuring
   if (!req.body) {
-    console.error("Signup - req.body is undefined!");
+    
     return res.status(400).send("Request body is missing. Please check Content-Type header.");
   }
   
   const { firstName, lastName, email, password, age } = req.body;
-  console.log(req.body);
 
   if (!firstName || !lastName || !email || !password) {
     return res.status(400).send("All fields are required");
@@ -57,11 +51,8 @@ authRouter.post("/signup", async (req, res) => {
     // Save new user (runs schema validations automatically)
     await newUser.save();
 
-    console.log("User created successfully");
     res.send("User signup successful");
   } catch (err) {
-    console.error(err);
-
     // Handle validation errors separately to provide useful feedback
     if (err.name === "ValidationError") {
       // Collect all validation error messages
@@ -85,18 +76,13 @@ authRouter.post("/login",async(req,res)=>{
         //succes message bejdo
        
   const { email, password } = req.body;
-  console.log(req.body)
-
-  console.log(email,"hello")
  
 
 
 
-//   console.log("req.body:", req.body);
   if (!email || !password) {
     return res.status(400).send("Email and password required");
   }
-  console.log(email,password)
    if (!validator.isEmail(email)) {
     return res.status(400).send("Invalid email ");
   }
@@ -132,7 +118,6 @@ res.status(200).json({
 
 
 } catch (err) {
-  console.error(err);
   res.status(500).send("Login not successful");
 }
 

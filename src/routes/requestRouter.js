@@ -8,6 +8,10 @@ const requestRouter = express.Router();
 
 
 // Send connection request
+
+// ensure that 
+// divy cannot send the request once again to gulshan
+/// gulshan cannot send the request oagain to divy
 requestRouter.post("/request/send/:status/:toUserID", isLoggedIn, async (req, res) => {
   try {
     const { status, toUserID } = req.params;
@@ -62,13 +66,15 @@ requestRouter.post("/request/send/:status/:toUserID", isLoggedIn, async (req, re
     return res.status(200).json(savedRequest);
 
   } catch (error) {
-    console.error("Send request error:", error);
     return res.status(500).send("Cannot send the request: " + error.message);
   }
 });
 
 
 // Review connection request (accept/reject)
+// akhsya => elon
+// elon should be logged in touserid
+// status should be interested
 requestRouter.post("/request/review/:status/:requestId", isLoggedIn, async (req, res) => {
   try {
     const rawRequestId = req.params.requestId || "";
@@ -94,8 +100,6 @@ requestRouter.post("/request/review/:status/:requestId", isLoggedIn, async (req,
       status: "interested"
     });
 
-console.log("Found request:", request);
-
     if (!request) {
       return res.status(404).send("No matching pending request found or you are not authorized.");
     }
@@ -110,7 +114,6 @@ console.log("Found request:", request);
     });
 
   } catch (error) {
-    console.error("Review error:", error);
     return res.status(500).send("Internal server error while reviewing request");
   }
 });
@@ -128,4 +131,8 @@ module.exports = {
 
 
 
+
+//// authrouter contains login signup and logout 
+/// profilerouter contains view edit and passowrd change
+/// 
 

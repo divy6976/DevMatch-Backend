@@ -71,12 +71,9 @@ app.use("/",userRoutes)
 
 connectDB()
 .then(()=>{
-    console.log("Database connected successfully");
     app.listen(PORT, () => {
-    console.log("server is running at 7777")
 })                   //now it can take requests
 
 }).catch((err)=>{
-    console.log("Database not connected");
 });
 

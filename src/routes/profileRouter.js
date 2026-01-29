@@ -16,7 +16,6 @@ profileRouter.get("/profile/view", isLoggedIn, async (req, res) => {
     
     // Same secret key jo login me use kiya tha
   const userID = req.user;
-console.log("Decoded token:", userID);
 
 const user = await User.findById(userID.id);
 
@@ -26,19 +25,16 @@ const user = await User.findById(userID.id);
 
     res.status(200).json(user);
   } catch (error) {
-    console.error(error);
-
-    
     res.status(500).send("Cannot get the profile");
   }
 });
 
+
+
 profileRouter.patch("/profile/edit",isLoggedIn,validateUserProfile,async(req,res)=>{
 
   //sbse phle validate kor data
-
   //id nikalo token se
-
 //findbyidandupdate me data send kro
 
 
@@ -49,15 +45,10 @@ try {
   if (!user) {
     return res.status(404).send("User not found");
   }
-  console.log(user);
   res.status(200).json(user);
 } catch (error) {
-  console.error(error);
   res.status(500).send("Cannot update the profile");
 }
-
-
-
 })
 
 
@@ -81,8 +72,6 @@ profileRouter.post("/profile/password", isLoggedIn,validateUserProfile, async (r
       });
     }
 
-    console.log(newPassword);
-
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     await User.findByIdAndUpdate(id, { password: hashedPassword });
@@ -91,7 +80,6 @@ profileRouter.post("/profile/password", isLoggedIn,validateUserProfile, async (r
       message: "Password updated successfully"
     });
   } catch (error) {
-    console.error(error);
     res.status(500).send("Cannot update the password");
   }
 });

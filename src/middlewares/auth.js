@@ -7,7 +7,7 @@ const isLoggedIn=(req,res,next)=>{
     //validate kro
     //verify kro jwt se
     //token  se data nikal 
-    //re me obj bnade
+    //req me obj bnade
     const token=req.cookies.token;
     if(!token){
         return res.status(401).send("You are not Logged In");
@@ -20,7 +20,6 @@ const isLoggedIn=(req,res,next)=>{
         req.user = decoded;
         next();
     } catch (error) {
-        console.error(error);
         res.status(401).send("Unauthorized: Invalid token");
     }
 }

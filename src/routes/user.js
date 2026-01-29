@@ -16,10 +16,11 @@ const USER_SAFE_FIELDS = [
 
 const mongoose = require('mongoose');
 
+//get al the request that are sent to the logged in user
+
 userRoutes.get("/user/requests/received", isLoggedIn, async (req, res) => {
   try {
     const loggedUser = req.user;
-    console.log("Logged-in user:", loggedUser);
 
     const userId = new mongoose.Types.ObjectId(loggedUser.id);
 
@@ -33,7 +34,6 @@ userRoutes.get("/user/requests/received", isLoggedIn, async (req, res) => {
       data: requests
     });
   } catch (error) {
-    console.error("Error in /received:", error);
     res.status(500).json({
       message: "Server error retrieving received requests",
       error: error.message
@@ -43,6 +43,7 @@ userRoutes.get("/user/requests/received", isLoggedIn, async (req, res) => {
 
 
 
+// it should show all the connections that are accepted by the logged in user 
 userRoutes.get("/user/requests/connection", isLoggedIn, async (req, res) => {
   const connectUser = req.user;
 
@@ -76,7 +77,6 @@ res.status(200).json({
 
 
   } catch (error) {
-    console.error("Error fetching connections:", error);
     res.status(500).json({
       message: "❌ Failed to fetch connection requests",
       error: error.message
@@ -88,6 +88,13 @@ res.status(200).json({
 //Akshay should not see ignored people
 // akshay should not see to whom he sent the request                        /user/feed?page=1&limit=10
 //AKshay should not see himself
+//pagination use krrha 
+
+// .skip() - skip the first n documents
+// .limit() - limit the number of documents to be returned
+
+
+
 userRoutes.get("/user/feed", isLoggedIn, async (req, res) => {
   //page aur limit string me ata toh pare into integer
   const page=parseInt(req.query.page)||1;
@@ -137,7 +144,6 @@ const skip=(page-1)*limit;
     });
 
   } catch (error) {
-    console.error("❌ Error in /user/feed:", error);
     res.status(500).json({
       message: "❌ Failed to fetch feed",
       error: error.message
