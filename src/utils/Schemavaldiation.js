@@ -41,10 +41,13 @@ if (photoUrl !== undefined) {
 
 
 
+  // Note: many clients send numbers as strings (e.g. "22")
   if (age !== undefined) {
-    if (typeof age !== 'number' || age < 10) {
+    const normalizedAge = typeof age === "string" ? Number(age) : age;
+    if (!Number.isFinite(normalizedAge) || normalizedAge < 10) {
       return res.status(400).send("Age must be a number and at least 10.");
     }
+    req.body.age = normalizedAge;
   }
 
 

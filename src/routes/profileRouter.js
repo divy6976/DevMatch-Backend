@@ -47,7 +47,10 @@ try {
   }
   res.status(200).json(user);
 } catch (error) {
-  res.status(500).send("Cannot update the profile");
+  res.status(500).json({
+    message: "Cannot update the profile",
+    error: error?.message || String(error)
+  });
 }
 })
 
